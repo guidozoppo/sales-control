@@ -1,0 +1,18 @@
+.main-registerSale {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.main-registerSale .data-sale {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.main-registerSale .data-products {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

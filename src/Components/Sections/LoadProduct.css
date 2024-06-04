@@ -1,0 +1,26 @@
+.main-loadProduct {
+  align-items: center;
+  height: 100%;
+}
+
+.main-loadProduct form {
+  gap: 10px;
+}
+
+.main-loadProduct form div, .main-loadProduct form, .main-loadProduct {
+  display: flex;
+  flex-direction: column;
+}
+
+.dateerror {
+  color: red;
+  font-weight: bold;
+  margin: 0;
+}
+
+.formsent {
+  color: green;
+  font-weight: bold;
+  margin: 0;
+  
+}

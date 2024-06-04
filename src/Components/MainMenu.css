@@ -1,0 +1,22 @@
+.mainmenu-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #F3F4F6;
+  width: calc(100% - 20px);
+  height: 100%;
+  padding: 10px;
+}
+
+.actions-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+}
+
+.actions-container a {
+  text-decoration: none;
+  color: black;
+  width: 45%;
+}
