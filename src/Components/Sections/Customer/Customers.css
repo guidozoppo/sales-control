@@ -1,0 +1,77 @@
+.main-customers {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #F3F4F6;
+}
+
+.header-customers {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;;
+  width: calc(100% - 20px);
+}
+
+.header-customers button {
+  display: flex;
+  align-items: center;
+  color: white;
+  background-color: #18181B;
+  height: 2.5rem;
+  padding: 0.5rem 1rem;
+  border: 0;
+  border-radius: calc(0.5rem - 2px);
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.header-customers button i {
+  font-size: 2rem;
+}
+
+.table-customers {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.table-customers table {
+  width: 80%;
+  background-color: white;
+  color: #717A9A;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000, 0 0 #0000, 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  padding: 10px;
+}
+
+.table-customers table th {
+  text-align: left;
+  font-weight: 500;
+}
+
+th, td {
+  padding: 20px;;
+  border-bottom: 2px solid #dddddd;
+}
+
+td {
+  border-bottom: 1px solid #dddddd;
+  color: black;
+}
+
+.column-number {
+  width: 10%;
+}
+
+.column-name, .column-email {
+  width: 20%;
+}
+
+.column-phone, .column-actions {
+  width: 15%;
+}
+
+.column-total-orders {
+  width: 10%;
+}
