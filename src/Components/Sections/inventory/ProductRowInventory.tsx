@@ -14,7 +14,7 @@ export const ProductRowInventory: React.FC<Props> = ({product, handleEditProduct
       <td>{product.unitPrice}</td>
       <td>{product.stock}</td>
       <td>{product.category}</td>
-      <td>{product.expire ? product.expire.toDateString() : '-'}</td>
+      {<td>{product.expire ? product.expire : '-'}</td>}
       <td className='td-actions'>
         <i onClick={handleEditProduct} id={product.id.toString()} className="bi bi-pencil-square"></i>
         <i onClick={handleDeleteProduct} id={product.id.toString()} className="bi bi-trash"></i>
