@@ -3,6 +3,9 @@
   flex-direction: column;
   align-items: center;
   height: 100%;
+  background-color: #F3F4F6;
+  overflow-y: auto;
+  
 }
 
 .main-registerSale .data-sale {
@@ -15,4 +18,36 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.main-registerSale .container-registerSale {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #FFFFFF;
+  border-radius: calc(0.5rem - 2px);
+  box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000, 0 0 #0000, 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  overflow-y: auto;
+}
+
+.main-registerSale .container-registerSale form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.button-registerSale, .button-addProduct {
+  color: #fafafa;
+  padding: 0.5rem 1rem;
+  border-radius: calc(0.5rem - 2px);
+  background-color: #18181b;
+  cursor: pointer;
+  margin: 1rem;
 }
