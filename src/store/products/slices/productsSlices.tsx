@@ -6,7 +6,7 @@ const initialState: InventoryProduct[] = (() => {
     return persistedState ? JSON.parse(persistedState) : []
 })();
 
-const getId = () => {
+/* const getId = () => {
   const persistedState = localStorage.getItem("products");
   
   if (persistedState) {
@@ -14,7 +14,7 @@ const getId = () => {
   }
   
   return 1
-}
+} */
 
 const getIndex = (name: string) => {
   const persistedState = localStorage.getItem("products");
@@ -43,8 +43,7 @@ export const productSlice = createSlice({
       if (index >= 0) {
         state[index].stock = Number(action.payload.stock) + Number(state[index].stock)
       } else {
-        const id = getId()
-        state.push(id, {...action.payload} )
+        state.push(action.payload)
       }
     },
     deleteProductByID: (state, action: PayloadAction<number>) => {
