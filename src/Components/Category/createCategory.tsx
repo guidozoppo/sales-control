@@ -9,6 +9,7 @@ export const CreateCategory = () => {
 
   const [values, setValues] = useState(initialValues);
   const [productInfo, setProductInfo] = useState('');
+  const [errorInfo, setErrorInfo] = useState('');
   const { addCategory } = useCategoryActions()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +26,12 @@ export const CreateCategory = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setProductInfo(`Producto ${values.name} cargado`);
+
+    if(values.name === '') {
+      setErrorInfo(`Name is required`);
+      return;
+    }
+    setProductInfo(`Category ${values.name} added`);
     addCategory(values);
     setValues(initialValues);
   }
@@ -47,6 +53,7 @@ export const CreateCategory = () => {
               />
           </div>
           {productInfo && <p className='formsent'>{productInfo}</p>}
+          {errorInfo && <p className='dataerror'>{errorInfo}</p>}
           <button type="submit">Add Category</button>
         </form>
       </div>
