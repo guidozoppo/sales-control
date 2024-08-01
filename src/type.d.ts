@@ -14,7 +14,7 @@ interface ProductWithID extends Product {
 interface InventoryProduct extends ProductWithID {
   category: string,
   stock: number,
-  expire: Date | null
+  expire: string | null
 }
 
 interface Customer {
