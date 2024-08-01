@@ -1,0 +1,8 @@
+.td-actions {
+  display: flex;
+  gap: 20px;
+}
+
+.td-actions i {
+  cursor: pointer;
+}
