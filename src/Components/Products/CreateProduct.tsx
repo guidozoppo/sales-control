@@ -27,7 +27,6 @@ export const CreateProduct = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
     const { target } = e
     const { name, value } = target
-    
     const newValues = {
       ...values,
       [name]: value
@@ -67,11 +66,11 @@ export const CreateProduct = () => {
               />
           </div>
           <div>
-            <label htmlFor="quantity">Stock</label>
+            <label htmlFor="stock">Stock</label>
             <input 
               type="number" 
-              id="quantity"
-              name="quantity"
+              id="stock"
+              name="stock"
               placeholder="10"
               min={1}
               value={values.stock}
@@ -91,7 +90,7 @@ export const CreateProduct = () => {
           </div>
           <div>
             <label htmlFor="category">Category</label>
-            <select name="" id="" onChange={handleChange}>
+            <select name="category" id="" onChange={handleChange}>
               {categories.map( (category, index) => {
                 return(
                   <option 
@@ -112,7 +111,7 @@ export const CreateProduct = () => {
               onChange={handleChange}
             />
           </div>
-          {dateError && <p className='dateerror'>{dateError}</p>}
+          {dateError && <p className='dataerror'>{dateError}</p>}
           {productInfo && <p className='formsent'>{productInfo}</p>}
           <button type="submit">Add Product</button>
           <Link to='/createCategory'>
