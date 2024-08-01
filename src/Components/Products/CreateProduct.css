@@ -26,18 +26,6 @@
   flex-direction: column;
 }
 
-.dateerror {
-  color: red;
-  font-weight: bold;
-  margin: 0;
-}
-
-.formsent {
-  color: green;
-  font-weight: bold;
-  margin: 0;
-}
-
 .main-loadProduct form button {
   color: #fafafa;
   padding: 0.5rem 1rem;

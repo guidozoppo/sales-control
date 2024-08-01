@@ -1,0 +1,19 @@
+input, select, option {
+  padding: 0.5rem 0.75rem;
+  border-color: #e4e4e7;
+  border-width: 1px;
+  border-radius: calc(0.5rem - 2px);
+  border-style: solid;
+}
+
+.dataerror {
+  color: red;
+  font-weight: bold;
+  margin: 0;
+}
+
+.formsent {
+  color: green;
+  font-weight: bold;
+  margin: 0;
+}
