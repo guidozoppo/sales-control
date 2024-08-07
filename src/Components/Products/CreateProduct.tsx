@@ -50,8 +50,8 @@ export const CreateProduct = () => {
   }
 
   return (
-    <main className="main-loadProduct">
-      <div className="container-loadProduct">
+    <main className="main-container">
+      <div className="form-base">
         <h1>Create Product</h1>
         <form action="" onSubmit={handleSubmit}>
           <div>

@@ -125,7 +125,7 @@ export const RegisterSale = () => {
   };
   
   return (
-    <main className="main-registerSale">
+    <main className="main-container">
       <div className="container-registerSale">
         <h1>Register a sale</h1>
         <form action="" onSubmit={handleSubmit}>
@@ -165,8 +165,8 @@ export const RegisterSale = () => {
           {dateError && <p className='dataerror'>{dateError}</p>}
           <p>TOTAL: ${saleTotal}</p>
           <div className="buttons-container">
-            <button className="button-registerSale" type="submit">Register Sale</button>
-            <button className="button-addProduct" type="button" onClick={addProductRow}>Add Product</button>
+            <button type="submit">Register Sale</button>
+            <button type="button" onClick={addProductRow}>Add Product</button>
           </div>
         </form>
       </div>

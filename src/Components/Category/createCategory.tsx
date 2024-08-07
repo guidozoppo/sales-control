@@ -37,8 +37,8 @@ export const CreateCategory = () => {
   }
 
   return (
-    <main className="main-loadProduct">
-      <div className="container-loadProduct">
+    <main className="main-container">
+      <div className="form-base">
         <h1>Create Category</h1>
         <form action="" onSubmit={handleSubmit}>
           <div>
