@@ -12,10 +12,17 @@ export const ProductRow: React.FC<Props> = ({ index, product, handleProductChang
     <div className="product row" style={{ display: 'flex'}}>
       <div>
           <label htmlFor={`productName-${index}`}>Product</label>
-          <select name="" id="" onChange={(e) => handleProductChange(index, e)}>
+          <select 
+            defaultValue={"Select a product"}
+            name="name"
+            id={`productName-${index}`}
+            onChange={(e) => handleProductChange(index, e)}
+            autoComplete="off"
+          >
+            <option disabled>Select a product</option>
             {inventory.map((product, index) => {
               return (
-                <option key={index} value={product.id}>{product.name}</option>
+                <option key={index} value={product.name}>{product.name}</option>
               )
             })}
           </select>
@@ -30,7 +37,7 @@ export const ProductRow: React.FC<Props> = ({ index, product, handleProductChang
             min={1}
             value={product.quantity}
             onChange={(e) => handleProductChange(index, e)}
-            />
+          />
         </div>
         <div>
           <label htmlFor={`unitPrice-${index}`}>Unit Price</label>
