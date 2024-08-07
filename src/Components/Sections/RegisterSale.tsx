@@ -49,7 +49,7 @@ export const RegisterSale = () => {
     e.preventDefault()
 
     products.forEach( p => {
-      checkProduct(p)
+      checkStock(p)
       //   Chequear que el producto exista
     //   Chequear que la cantidad sea razonable al stock
     //   Cargar la venta
@@ -70,12 +70,21 @@ export const RegisterSale = () => {
       }
   
       //registerSale(sale)
+      //console.log(sale)
     }
   }
 
   const checkProduct = (product: SaleProduct) => {
+    //console.log(inventory)
+  }
+
+  const checkStock = (product: SaleProduct) => {
+    const productToCheck = inventory.find((pi) => pi.name.toLowerCase() === product.name.toLowerCase())
+
+    if(productToCheck && productToCheck.stock < product.quantity){
+      console.log(`Producto ${product.name} sin tanto stock. Maximo ${productToCheck.stock}`)
+    }
     console.log(product)
-    console.log(inventory)
   }
   
   const handleProductChange = (index: number, event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
