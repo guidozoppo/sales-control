@@ -48,10 +48,10 @@ export const AddCustomer = () => {
   };
 
   return (
-    <main className='addCustomer-main'>
-      <div className='addCustomer-container'>
+    <main className='main-container'>
+      <div className='form-base'>
         <h1>Add new customer</h1>
-        <form className='addCustomer-form' onSubmit={handleAddCustomer} action="">
+        <form onSubmit={handleAddCustomer} action="">
           <div>
             <label htmlFor="customerName">Name*</label>
             <input 

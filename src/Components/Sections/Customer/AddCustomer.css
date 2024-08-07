@@ -1,40 +1,5 @@
-.addCustomer-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-  background-color: #F3F4F6;
-}
-
-.addCustomer-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #FFFFFF;
-  width: 50%;
-  border-radius: calc(0.5rem - 2px);
-  box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000, 0 0 #0000, 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  padding: 1.5rem;
-  margin-top: 1.5rem;
-}
-
-.addCustomer-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  width: 50%;
-}
-
-.addCustomer-form div {
+.form-base form div {
   display: flex;
   flex-direction: column;
   gap: 5px;
-}
-
-.addCustomer-form button {
-  color: #fafafa;
-  padding: 0.5rem 1rem;
-  border-radius: calc(0.5rem - 2px);
-  background-color: #18181b;
-  cursor: pointer;
 }
