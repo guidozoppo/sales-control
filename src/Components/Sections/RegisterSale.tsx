@@ -88,7 +88,6 @@ export const RegisterSale = () => {
     };
 
     setProducts(updatedProducts);
-    console.log(updatedProducts)
   };
 
   useEffect(() => {
@@ -124,32 +123,24 @@ export const RegisterSale = () => {
           <div className="data-sale">
             {<div>
               <label htmlFor="customerName">Customer</label>
-              <select onChange={handleChange}>
+              <select onChange={handleChange} id='customerName'>
                 {customers.map((customer, index) => {
                   return(
                     <option key={index} value={customer.id}>{customer.name}</option>
                   )
                 })}
               </select>
-              {/* <input 
-                type="text" 
-                id="customerName"
-                name="customerName"
-                placeholder="Jorge Lobos"
-                value={saleInfo.customerName}
-                onChange={handleChange}
-                /> */}
             </div>}
             <div>
-            <label htmlFor="saleDate">Sale Date</label>
-            <input 
-              type="date" 
-              id="saleDate"
-              name="saleDate"
-              value={formatDate(saleInfo.saleDate)}
-              onChange={handleChange}
-              placeholder=""
-            />
+              <label htmlFor="saleDate">Sale Date</label>
+              <input 
+                type="date" 
+                id="saleDate"
+                name="saleDate"
+                value={formatDate(saleInfo.saleDate)}
+                onChange={handleChange}
+                placeholder=""
+              />
             </div>
           </div>
           <div className="data-products">
@@ -162,7 +153,7 @@ export const RegisterSale = () => {
               />
             ))}
           </div>
-          {dateError && <p className='dateerror'>{dateError}</p>}
+          {dateError && <p className='dataerror'>{dateError}</p>}
           <p>TOTAL: ${saleTotal}</p>
           <div className="buttons-container">
             <button className="button-registerSale" type="submit">Register Sale</button>
