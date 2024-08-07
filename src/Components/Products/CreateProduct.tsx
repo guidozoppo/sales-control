@@ -113,13 +113,14 @@ export const CreateProduct = () => {
           </div>
           {dateError && <p className='dataerror'>{dateError}</p>}
           {productInfo && <p className='formsent'>{productInfo}</p>}
-          <button type="submit">Add Product</button>
-          <Link to='/createCategory'>
-          <button>
-            <i className="bi bi-plus"></i>
-            Add Category
-          </button>
-        </Link>
+          <div className="buttons-container">
+            <button type="submit">Add Product</button>
+            <Link to='/createCategory'>
+              <button>
+                Add Category
+              </button>
+            </Link>
+          </div>
         </form>
       </div>
     </main>
