@@ -17,3 +17,7 @@ input, select, option {
   font-weight: bold;
   margin: 0;
 }
+
+div .inputError {
+  border-color: 1px solid red;
+}
