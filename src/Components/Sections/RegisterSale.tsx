@@ -10,100 +10,27 @@ export const RegisterSale = () => {
     document.title = 'Register Sale - Sales Control';
   }, []); 
 
-  const initialValues = {
-    customerId: 0,
-    saleDate: new Date()
-  };
+  const currentDate = new Date();
+
+  const initialProducts = [
+    { name: '', quantity: 1, unitPrice: 0 },
+    { name: '', quantity: 1, unitPrice: 0 },
+    { name: '', quantity: 1, unitPrice: 0 },
+  ];
 
   const inventory = useAppSelector((state) => state.products);
   const customers = useAppSelector((state) => state.customers);
   const { registerSale } = useSaleActions();
-  const [saleInfo, setSaleInfo] = useState(initialValues);
-  const [dateError, setDateError] = useState('');
+  const [saleDate, setSaleDate] = useState<Date | string>(currentDate);
+  const [dataError, setDataError] = useState('');
   const [saleTotal, setSaleTotal] = useState(0);
-  const [saleProductsId, setSaleProductsId] = useState([])
-  
-  const [products, setProducts] = useState<SaleProduct[]>([
-    { name: '', quantity: 1, unitPrice: 0 },
-    { name: '', quantity: 1, unitPrice: 0 },
-    { name: '', quantity: 1, unitPrice: 0 },
-  ]);
+  const [customerId, setCustomerId] = useState<number | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
-    const { target } = e
-    const { name, value } = target
-
-    const newValues = {
-      ...saleInfo,
-      [name]: value
-    }
-
-    if(e.target.tagName === 'SELECT') {
-      newValues.customerId = parseInt(e.target.value)
-    }
-    
-    setSaleInfo(newValues)
-  }
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    products.forEach( p => {
-      checkStock(p)
-      //   Chequear que el producto exista
-    //   Chequear que la cantidad sea razonable al stock
-    //   Cargar la venta
-    //   Reiniciar el formulario
-    })
-
-    if(saleProductsId.length > 0) {
-      const year = saleInfo.saleDate.getFullYear();
-      const month = saleInfo.saleDate.getMonth();
-      const day = saleInfo.saleDate.getDate();
-      const formattedDate = `${year}-${month}-${day}`;
-  
-      const sale: Sale = {
-        date: formattedDate,
-        customer_id: saleInfo.customerId,
-        products: [1, 2],
-        total: saleTotal
-      }
-  
-      //registerSale(sale)
-      //console.log(sale)
-    }
-  }
-
-  const checkProduct = (product: SaleProduct) => {
-    //console.log(inventory)
-  }
-
-  const checkStock = (product: SaleProduct) => {
-    const productToCheck = inventory.find((pi) => pi.name.toLowerCase() === product.name.toLowerCase())
-
-    if(productToCheck && productToCheck.stock < product.quantity){
-      console.log(`Producto ${product.name} sin tanto stock. Maximo ${productToCheck.stock}`)
-    }
-    console.log(product)
-  }
-  
-  const handleProductChange = (index: number, event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
-    const { name, value } = event.target;
-    const updatedProducts = [...products];
-
-    updatedProducts[index] = {
-      ...updatedProducts[index],
-      [name]: name === 'quantity' || name === 'unitPrice' ? Number(value) : value, // Si se modifica quantity o unitPrice al value lo hago number, sino ( se modifica el productName) lo dejo como string
-    };
-
-    setProducts(updatedProducts);
-  };
+  const [products, setProducts] = useState<SaleProduct[]>(initialProducts);
+  const [productErrors, setProductErrors] = useState<boolean[]>(new Array(products.length).fill(false));
 
   useEffect(() => {
-    calculateNewTotal();
-  }, [products]);
-
-  const calculateNewTotal = () => {
+    //calcula el nuevo total cuando algo de los productos cambia
     let newTotal = 0
     products.forEach( p => {
       const totalProduct = (p.quantity * p.unitPrice)
@@ -111,18 +38,105 @@ export const RegisterSale = () => {
     })
 
     setSaleTotal(newTotal)
+  }, [products]);
+
+  const setProductError = (index: number, hasError: boolean) => {
+    const updatedErrors = [...productErrors];
+    updatedErrors[index] = hasError;
+    setProductErrors(updatedErrors);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    
+    const hasErrors = productErrors.some((error) => error);
+    
+    if (hasErrors) {
+      setDataError("There are issues with some product quantities.");
+      return;
+    } else if (!hasProductSelected()) {
+      setDataError("You've to select a product.");
+      return;
+    }
+    else {
+      setDataError('Sale registered');
+      createSale();
+      alert('Sale registered');
+      resetForm();
+    }
   }
+  
+  const hasProductSelected = () => {
+    let someProductSelected = false;
+    products.forEach( p => {
+      if(p.name != '') {
+        someProductSelected = true;
+      }
+    })
+    return someProductSelected;
+  }
+
+  const createSale = () => {
+    const productIds: number[] = [];
+
+    products.forEach( p => {
+      if(p.name) {
+        const productFound = inventory.find((pr) => p.name === pr.name) as InventoryProduct;
+        productIds.push(productFound?.id);
+      }
+    })
+
+    if(productIds.length > 0) {
+      const sale: Sale = {
+        date: formatDate(saleDate),
+        customer_id: customerId!,
+        products: productIds,
+        total: saleTotal
+      }
+
+      registerSale(sale);
+    }
+  }
+
+  const handleProductChange = (
+    index: number, 
+    event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>,
+    unitPrice: number,
+  ) => {
+    const { name, value } = event.target;
+    const updatedProducts = [...products];
+
+    updatedProducts[index] = {
+      ...updatedProducts[index],
+      [name]: name === 'quantity' /* || name === 'unitPrice' */ ? Number(value) : value, // Si se modifica quantity o unitPrice al value lo hago number, sino ( se modifica el productName) lo dejo como string
+      ['unitPrice']: Number(unitPrice),
+    };
+
+    setProducts(updatedProducts);
+  };
 
   const addProductRow = () => {
     setProducts([...products, { name: '', quantity: 1, unitPrice: 0 }]);
   };
 
-  const formatDate = (date: Date): string => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
+  const formatDate = (date: Date | string): string => {
+    if(typeof date === "object"){
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+    return date;
   };
+  
+  const resetForm = () => {
+    setProducts(initialProducts);
+    setProductErrors(new Array(initialProducts.length).fill(false));
+    setSaleTotal(0);
+    setDataError('');
+    setSaleDate(currentDate);
+    setCustomerId(null);
+  }
   
   return (
     <main className="main-container">
@@ -132,12 +146,18 @@ export const RegisterSale = () => {
           <div className="data-sale">
             {<div>
               <label htmlFor="customerName">Customer</label>
-              <select onChange={handleChange} id='customerName'>
-                {customers.map((customer, index) => {
-                  return(
-                    <option key={index} value={customer.id}>{customer.name}</option>
-                  )
-                })}
+              <select 
+                value={customerId || "Select a customer"}
+                id='customerName'
+                onChange={(e) => setCustomerId(parseInt(e.target.value))} 
+                autoComplete="off"
+                >
+                  <option disabled>Select a customer</option>
+                  {customers.map((customer, index) => {
+                    return(
+                      <option key={index} value={customer.id}>{customer.name}</option>
+                    )
+                  })}
               </select>
             </div>}
             <div>
@@ -146,8 +166,8 @@ export const RegisterSale = () => {
                 type="date" 
                 id="saleDate"
                 name="saleDate"
-                value={formatDate(saleInfo.saleDate)}
-                onChange={handleChange}
+                value={formatDate(saleDate)}
+                onChange={(e) => setSaleDate(e.target.value)}
                 placeholder=""
               />
             </div>
@@ -159,10 +179,11 @@ export const RegisterSale = () => {
                 index={index}
                 product={product}
                 handleProductChange={handleProductChange}
+                setProductError={setProductError}
               />
             ))}
           </div>
-          {dateError && <p className='dataerror'>{dateError}</p>}
+          {dataError && <p className='dataerror'>{dataError}</p>}
           <p>TOTAL: ${saleTotal}</p>
           <div className="buttons-container">
             <button type="submit">Register Sale</button>
