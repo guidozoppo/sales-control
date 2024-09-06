@@ -12,6 +12,7 @@ import { AddCustomer } from "./Components/Sections/Customer/AddCustomer";
 import { Inventory } from "./Components/Sections/inventory/Inventory";
 import { CreateCategory } from "./Components/Category/createCategory";
 import { EditInventoryItem } from "./Components/Sections/inventory/EditInventoryItem";
+import { EditCustomer } from "./Components/Sections/Customer/EditCustomer";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/createCategory" element={<CreateCategory />}/>
           <Route path="/customers" element={<Customers />}/>
           <Route path="/addCustomer" element={<AddCustomer />}/>
+          <Route path="/editCustomer/:id" element={<EditCustomer />}/>
           <Route path="/salesReports" element={<SalesReports />}/>
         </Routes>
       <Footer />

@@ -4,40 +4,12 @@ import './Customers.css'
 import { useAppSelector } from '../../../hooks/store'
 import { useCustomerActions } from '../../../store/customers/hooks/useCustomerActions'
 
-/* const CustomersInfo = [
-  {
-    id: 1,
-    name: 'Guido',
-    email: 'guido@gmail.com',
-    phone: '2983555555',
-    totalOrders: 15
-  },
-  {
-    id: 2,
-    name: 'Guido',
-    email: 'guido@gmail.com',
-    phone: '2983555555',
-    totalOrders: 15
-  },
-  {
-    id: 3,
-    name: 'Guido',
-    email: 'guido@gmail.com',
-    phone: '2983555555',
-    totalOrders: 15
-  },
-] */
-
 export const Customers = () => {
   const customers = useAppSelector((state => state.customers))
   const { deleteCustomer } = useCustomerActions()
 
   const handleDeleteCustomer = (e: React.MouseEvent<HTMLElement>) => {
     deleteCustomer(parseInt(e.currentTarget.id))
-  }
-  
-  const handleEditCustomer = (e: React.MouseEvent<HTMLElement>) => {
-    console.log(e.currentTarget.id)
   }
 
   return (
@@ -65,7 +37,7 @@ export const Customers = () => {
           </thead>
           <tbody>
             {customers.map( c => (
-              <CustomerRow customer={c} handleDeleteCustomer={handleDeleteCustomer} handleEditCustomer={handleEditCustomer} key={c.id}/>
+              <CustomerRow customer={c} handleDeleteCustomer={handleDeleteCustomer} key={c.id}/>
             ))}
           </tbody>
         </table>
