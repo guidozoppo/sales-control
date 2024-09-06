@@ -1,12 +1,12 @@
+import { Link } from 'react-router-dom'
 import '../Customer/CustomerRow.css'
 
 interface Props {
   product: InventoryProduct,
-  handleEditProduct: (e: React.MouseEvent<HTMLElement>) => void,
   handleDeleteProduct: (e: React.MouseEvent<HTMLElement>) => void
 }
 
-export const ProductRowInventory: React.FC<Props> = ({product, handleEditProduct, handleDeleteProduct}) => {
+export const ProductRowInventory: React.FC<Props> = ({product, handleDeleteProduct}) => {
   return (
     <tr key={product.id}>
       <td>{product.id}</td>
@@ -16,7 +16,9 @@ export const ProductRowInventory: React.FC<Props> = ({product, handleEditProduct
       <td>{product.category}</td>
       {<td>{product.expire ? product.expire : '-'}</td>}
       <td className='td-actions'>
-        <i onClick={handleEditProduct} id={product.id.toString()} className="bi bi-pencil-square"></i>
+        <Link to={`/editInventoryItem/${product.id}`} >
+          <i id={product.id.toString()} className="bi bi-pencil-square"></i>
+        </Link>
         <i onClick={handleDeleteProduct} id={product.id.toString()} className="bi bi-trash"></i>
       </td>
     </tr>

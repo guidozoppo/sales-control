@@ -42,3 +42,8 @@ body {
   background-color: #18181b;
   cursor: pointer;
 }
+
+.form-base h1 {
+  text-align: center;
+  width: 70%;
+}

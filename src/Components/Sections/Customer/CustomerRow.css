@@ -1,6 +1,8 @@
 .td-actions {
   display: flex;
+  align-items: center;
   gap: 20px;
+  min-height: 4em;
 }
 
 .td-actions i {
