@@ -11,6 +11,7 @@ import { SalesReports } from "./Components/Sections/SalesReports";
 import { AddCustomer } from "./Components/Sections/Customer/AddCustomer";
 import { Inventory } from "./Components/Sections/inventory/Inventory";
 import { CreateCategory } from "./Components/Category/createCategory";
+import { EditInventoryItem } from "./Components/Sections/inventory/EditInventoryItem";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<MainMenu />}/>
           <Route path="/registerSale" element={<RegisterSale />}/>
           <Route path="/inventory" element={<Inventory />}/>
+          <Route path="/editInventoryItem/:id" element={<EditInventoryItem />}/>
           <Route path="/createProduct" element={<CreateProduct />}/>
           <Route path="/createCategory" element={<CreateCategory />}/>
           <Route path="/customers" element={<Customers />}/>

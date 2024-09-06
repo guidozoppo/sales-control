@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux"
-import { addNewProduct, deleteProductByID } from "../slices/productsSlices"
+import { addNewProduct, editProductByID, deleteProductByID } from "../slices/productsSlices"
 
 export const useProductActions = () => {
   const dispatch = useDispatch()
@@ -7,10 +7,14 @@ export const useProductActions = () => {
   const addProduct = ({name, stock, unitPrice, category, expire}: InventoryProduct) => {
     dispatch(addNewProduct({id: Math.floor(Math.random() * 100000), name, stock, unitPrice, category, expire}))
   }
-
+  
   const deleteProduct = ( id: number ) => {
     dispatch(deleteProductByID(id))
   }
+  
+  const editProduct = ({id, name, stock, unitPrice, category, expire}: InventoryProduct) => {
+    dispatch(editProductByID({id, name, stock, unitPrice, category, expire}))
+  }
 
-  return { addProduct, deleteProduct }
+  return { addProduct, editProduct, deleteProduct }
 }

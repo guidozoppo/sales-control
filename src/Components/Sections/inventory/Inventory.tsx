@@ -10,11 +10,6 @@ export const Inventory = () => {
   const handleDeleteProduct = (e: React.MouseEvent<HTMLElement>) => {
     deleteProduct(parseInt(e.currentTarget.id))  
   }
-  
-  const handleEditProduct = (e: React.MouseEvent<HTMLElement>) => {
-    console.log(e.currentTarget.id)
-  }
-
   return (
     <main className='main-customers'>
       <header className='header-customers'>
@@ -46,7 +41,6 @@ export const Inventory = () => {
               <ProductRowInventory 
                 product={p} 
                 handleDeleteProduct={handleDeleteProduct} 
-                handleEditProduct={handleEditProduct} 
                 key={p.id}
               />
             ))}
