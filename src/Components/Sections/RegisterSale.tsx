@@ -66,15 +66,7 @@ export const RegisterSale = () => {
     }
   }
   
-  const hasProductSelected = () => {
-    let someProductSelected = false;
-    products.forEach( p => {
-      if(p.name != '') {
-        someProductSelected = true;
-      }
-    })
-    return someProductSelected;
-  }
+  const hasProductSelected = () => products.some( p => p.name !== "");
 
   const createSale = () => {
     const productIds: number[] = [];
