@@ -3,3 +3,7 @@
   flex-direction: column;
   gap: 5px;
 }
+
+.form-base a button {
+  width: 100%;
+}
