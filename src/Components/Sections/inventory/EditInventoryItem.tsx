@@ -9,21 +9,47 @@ export const EditInventoryItem = () => {
   const { editProduct } = useProductActions() 
   const productToEdit: InventoryProduct = products.find( p => p.id === parseInt(id!))!;
   const categories = useAppSelector((state) => state.categories);
-  const [values, setValues] = useState(productToEdit);
-  const [dateError, setDateError] = useState('');
+  const [newDataItem, setNewDataItem] = useState(productToEdit);
+  const [dataError, setDataError] = useState('');
   const [productInfo, setProductInfo] = useState('');
   
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleEditItem = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const { name, expire, stock, unitPrice, category } = newDataItem;
 
-    if (values.expire != null && new Date(values.expire) < new Date()) {
-      setDateError("Expire date is expired.");
+    if (expire != null && new Date(expire) < new Date()) {
+      setDataError("Expire date is expired.");
+      setProductInfo('');
       return;
     }
 
-    setProductInfo(`Product ${values.name} edited`);
-    editProduct(values);
-    setDateError(''); 
+    if (name === '' || stock.toString() === '' || 
+        unitPrice.toString() === '' || category === '' || expire === '') {
+      setDataError('Error. Some field is empty.');
+      setProductInfo('');
+      return;
+    }
+
+    if ( productToEdit.name === name &&
+         productToEdit.expire === expire &&
+         productToEdit.stock === stock &&
+         productToEdit.unitPrice === unitPrice &&
+         productToEdit.category === category
+        ) {
+     setDataError("Error to edit. All fields have same values that previously");
+     setProductInfo('');
+     return;
+   }
+    
+    if (unitPrice < 0 || stock < 0) {
+      setDataError('Price or stock are negative.');
+      setProductInfo('');
+      return;
+    }
+
+    setProductInfo(`Product ${name} edited`);
+    editProduct(newDataItem);
+    setDataError(''); 
   }
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
@@ -31,18 +57,18 @@ export const EditInventoryItem = () => {
     const { name, value } = target;
 
     const newValues = {
-      ...values,
+      ...newDataItem,
       [name]: value
     }
 
-    setValues(newValues);
+    setNewDataItem(newValues);
   }
 
   return (
     <main className="main-container">
       <div className="form-base">
         <h1>Edit Product {productToEdit?.name}</h1>
-        <form action="" onSubmit={handleSubmit}>
+        <form action="" onSubmit={handleEditItem}>
           <div>
             <label htmlFor="name">Product</label>
             <input
@@ -50,7 +76,7 @@ export const EditInventoryItem = () => {
               id="name"
               name="name"
               placeholder="Manzana"
-              value={values?.name}
+              value={newDataItem?.name}
               onChange={handleChange}
               />
           </div>
@@ -62,7 +88,7 @@ export const EditInventoryItem = () => {
               name="stock"
               placeholder="10"
               min={1}
-              value={values?.stock}
+              value={newDataItem?.stock}
               onChange={handleChange}
             />
           </div>
@@ -73,7 +99,7 @@ export const EditInventoryItem = () => {
               id="unitPrice"
               name="unitPrice"
               placeholder="100"
-              value={values?.unitPrice}
+              value={newDataItem?.unitPrice}
               onChange={handleChange}
             />
           </div>
@@ -81,7 +107,7 @@ export const EditInventoryItem = () => {
             <label htmlFor="category">Category</label>
             <select 
               name="category" 
-              value={values.category || categories[0].name} 
+              value={newDataItem.category || categories[0].name} 
               onChange={handleChange}>
               {categories.map( (category, index) => {
                 return(
@@ -101,11 +127,11 @@ export const EditInventoryItem = () => {
               type="date"
               id="expire"
               name="expire"
-              value={values.expire ? values.expire : ""}
+              value={newDataItem.expire ? newDataItem.expire : ""}
               onChange={handleChange}
             />
           </div>
-          {dateError && <p className='dataerror'>{dateError}</p>}
+          {dataError && <p className='dataerror'>{dataError}</p>}
           {productInfo && <p className='formsent'>{productInfo}</p>}
           <div className="buttons-container">
             <button type="submit">Edit Product</button>

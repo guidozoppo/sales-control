@@ -23,21 +23,22 @@ export const EditCustomer = () => {
     const name = customerData.name;
     const email = customerData.email;
     const phone = customerData.phone;
-    // Verificar que no haya inputs vacios
-    if (name === '' && email === '' && phone === '') {
+
+    if (name === '' || email === '' || phone === '') {
       setErrorInfo('Error. Some field is empty.');
       return;
     }
 
-    if(customerToEdit.name === customerData.name &&
-       customerToEdit.email === customerData.email &&
-         customerToEdit.phone === customerData.phone) {
+    if(customerToEdit.name === name &&
+       customerToEdit.email === email &&
+         customerToEdit.phone === phone) {
       setErrorInfo("Error to edit. All fields have same values that previously");
       return;
     }
     
     // Verificar que el nuevo nombre no esté cargado ya
     
+    setErrorInfo("");
     setCustomerInfo(`Customer ${name} added`);
     
     editCustomer({name, phone, email, id: customerData.id});
