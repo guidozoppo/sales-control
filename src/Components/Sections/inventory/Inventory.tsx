@@ -13,8 +13,9 @@ export const Inventory = () => {
   return (
     <main className='main-customers'>
       <header className='header-customers'>
+        <Link to="/" style={{color: "#000000", textDecoration: "none", fontFamily: "cursive", fontSize: "1.2rem"}}>X</Link>
         <h1>Inventory</h1>
-        <Link to='/createProduct'>
+        <Link className="add-action" to='/createProduct'>
           <button>
             <i className="bi bi-plus"></i>
             Add Product

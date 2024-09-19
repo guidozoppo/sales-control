@@ -15,8 +15,11 @@ export const Customers = () => {
   return (
     <main className='main-customers'>
       <header className='header-customers'>
+        <Link to="/" style={{color: "#000000", textDecoration: "none", fontFamily: "cursive", fontSize: "1.2rem"}}>
+          X
+        </Link>
         <h1>Customers</h1>
-        <Link to='/addCustomer'>
+        <Link className="add-action" to='/addCustomer'>
           <button>
             <i className="bi bi-plus"></i>
             Add Customer

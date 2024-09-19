@@ -15,6 +15,7 @@
 }
 
 .main-container .container-registerSale {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,6 +27,18 @@
   overflow-y: auto;
 }
 
+.close-button {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  font-size: 1.2rem;
+  font-family: cursive;
+}
+
+.close-button a{
+  text-decoration: none;
+  color: #000000;
+}
 .main-container .container-registerSale form {
   display: flex;
   flex-direction: column;

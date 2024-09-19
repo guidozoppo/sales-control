@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { ProductRow } from "../Products/ProductRow";
 import { useAppSelector } from "../../hooks/store";
 import { useSaleActions } from "../../store/sales/hooks/useSaleAction";
+import { Link } from 'react-router-dom';
 
 export const RegisterSale = () => {
   useEffect(() => {
@@ -133,6 +134,11 @@ export const RegisterSale = () => {
   return (
     <main className="main-container">
       <div className="container-registerSale">
+        <div className='close-button'>
+          <Link to="/">
+            x
+          </Link>
+          </div>
         <h1>Register a sale</h1>
         <form action="" onSubmit={handleSubmit}>
           <div className="data-sale">
