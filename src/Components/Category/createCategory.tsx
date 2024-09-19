@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useCategoryActions } from "../../store/categories/hooks/useCategoryActions";
+import { Link } from "react-router-dom";
 
 export const CreateCategory = () => {
 
@@ -39,6 +40,11 @@ export const CreateCategory = () => {
   return (
     <main className="main-container">
       <div className="form-base">
+        <div className='close-button'>
+          <Link to="/">
+            x
+          </Link>
+        </div>
         <h1>Create Category</h1>
         <form action="" onSubmit={handleSubmit}>
           <div>

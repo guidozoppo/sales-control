@@ -26,6 +26,7 @@ body {
   box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000, 0 0 #0000, 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   padding: 1.5rem 0;
   margin: 1.5rem 0;
+  position: relative;
 }
 
 .form-base form {
@@ -46,4 +47,8 @@ body {
 .form-base h1 {
   text-align: center;
   width: 70%;
+}
+
+a.add-action {
+  text-decoration: none;
 }

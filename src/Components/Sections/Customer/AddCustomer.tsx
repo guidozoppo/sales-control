@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import '../../../styles/Input.css'
 import './AddCustomer.css'
 import { useCustomerActions } from '../../../store/customers/hooks/useCustomerActions'
+import { Link } from 'react-router-dom'
 
 export const AddCustomer = () => {
   const { addCustomer } = useCustomerActions();
@@ -50,6 +51,11 @@ export const AddCustomer = () => {
   return (
     <main className='main-container'>
       <div className='form-base'>
+        <div className='close-button'>
+          <Link to="/">
+            x
+          </Link>
+        </div>
         <h1>Add new customer</h1>
         <form onSubmit={handleAddCustomer} action="">
           <div>

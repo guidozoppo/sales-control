@@ -52,6 +52,11 @@ export const CreateProduct = () => {
   return (
     <main className="main-container">
       <div className="form-base">
+        <div className='close-button'>
+          <Link to="/">
+            x
+          </Link>
+        </div>
         <h1>Create Product</h1>
         <form action="" onSubmit={handleSubmit}>
           <div>
