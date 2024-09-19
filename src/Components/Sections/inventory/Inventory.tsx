@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { ProductRowInventory } from "./ProductRowInventory"
 import { useAppSelector } from "../../../hooks/store"
 import { useProductActions } from "../../../store/products/hooks/useProductActions"
+import './Inventory.css';
 
 export const Inventory = () => {
   const products = useAppSelector((state) => state.products)
