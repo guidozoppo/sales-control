@@ -1,8 +1,11 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useCategoryActions } from "../../store/categories/hooks/useCategoryActions";
 import { Link } from "react-router-dom";
 
 export const CreateCategory = () => {
+  useEffect(() => {
+    document.title = 'Create Category - Sales Control';
+  }, []); 
 
   const initialValues: Category = {
     name: "",
