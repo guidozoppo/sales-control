@@ -3,8 +3,13 @@ import { CustomerRow } from './CustomerRow'
 import './Customers.css'
 import { useAppSelector } from '../../../hooks/store'
 import { useCustomerActions } from '../../../store/customers/hooks/useCustomerActions'
+import { useEffect } from 'react'
 
 export const Customers = () => {
+  useEffect(() => {
+    document.title = 'Customers - Sales Control';
+  }, []); 
+
   const customers = useAppSelector((state => state.customers))
   const { deleteCustomer } = useCustomerActions()
 

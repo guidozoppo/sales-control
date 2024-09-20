@@ -3,8 +3,13 @@ import { ProductRowInventory } from "./ProductRowInventory"
 import { useAppSelector } from "../../../hooks/store"
 import { useProductActions } from "../../../store/products/hooks/useProductActions"
 import './Inventory.css';
+import { useEffect } from "react";
 
 export const Inventory = () => {
+  useEffect(() => {
+    document.title = 'Inventory - Sales Control';
+  }, []); 
+
   const products = useAppSelector((state) => state.products)
   const { deleteProduct } = useProductActions()
   

@@ -1,9 +1,13 @@
 import { Link, useParams } from "react-router-dom";
 import { useAppSelector } from "../../../hooks/store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useProductActions } from "../../../store/products/hooks/useProductActions";
 
 export const EditInventoryItem = () => {
+  useEffect(() => {
+    document.title = 'Edit Product - Sales Control';
+  }, []); 
+
   const { id } = useParams<string>();
   const products = useAppSelector((state) => state.products);
   const { editProduct } = useProductActions() 

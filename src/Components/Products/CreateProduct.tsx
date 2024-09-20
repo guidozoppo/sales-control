@@ -6,7 +6,7 @@ import { useAppSelector } from "../../hooks/store";
 
 export const CreateProduct = () => {
   useEffect(() => {
-    document.title = 'Load Product - Sales Control';
+    document.title = 'Create Product - Sales Control';
   }, []); 
 
   const initialValues: InventoryProduct = {
