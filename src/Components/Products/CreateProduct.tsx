@@ -53,7 +53,7 @@ export const CreateProduct = () => {
     <main className="main-container">
       <div className="form-base">
         <div className='close-button'>
-          <Link to="/">
+          <Link to="/inventory">
             x
           </Link>
         </div>

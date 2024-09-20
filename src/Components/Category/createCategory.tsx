@@ -44,7 +44,7 @@ export const CreateCategory = () => {
     <main className="main-container">
       <div className="form-base">
         <div className='close-button'>
-          <Link to="/">
+          <Link to="/createProduct">
             x
           </Link>
         </div>

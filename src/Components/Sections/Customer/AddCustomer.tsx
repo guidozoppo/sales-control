@@ -52,7 +52,7 @@ export const AddCustomer = () => {
     <main className='main-container'>
       <div className='form-base'>
         <div className='close-button'>
-          <Link to="/">
+          <Link to="/customers">
             x
           </Link>
         </div>
