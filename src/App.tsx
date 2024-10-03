@@ -13,6 +13,7 @@ import { Inventory } from "./Components/Sections/inventory/Inventory";
 import { CreateCategory } from "./Components/Category/createCategory";
 import { EditInventoryItem } from "./Components/Sections/inventory/EditInventoryItem";
 import { EditCustomer } from "./Components/Sections/Customer/EditCustomer";
+import { Login } from "./Components/Sections/Login/login";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Header />
         <Routes>
           <Route path="/" element={<MainMenu />}/>
+          <Route path="/login" element={<Login />}/>
           <Route path="/registerSale" element={<RegisterSale />}/>
           <Route path="/inventory" element={<Inventory />}/>
           <Route path="/editInventoryItem/:id" element={<EditInventoryItem />}/>
