@@ -13,12 +13,12 @@
   width: 50%;
 }
 
-.welcome-container {
+.welcome-container h1 {
+  text-align: center;
 }
 
 .form-container {
   flex-direction: column;
-  /* background-color: red; */
   align-items: start;
   margin-left: 10rem;
 }
