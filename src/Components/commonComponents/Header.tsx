@@ -1,7 +1,9 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import './Header.css'
 
 export const Header = () => {
+  const location = useLocation();
+  
   return (
     <header className='nav-header'>
       <div>
@@ -10,10 +12,10 @@ export const Header = () => {
           <h1>Sales Control</h1>
         </Link>
       </div>
-      <div>
+      {location.pathname != '/login' && <div>
         <i className="bi bi-person"></i>
         <p>Profile</p>
-      </div>
+      </div>}
     </header>
   )
 }
