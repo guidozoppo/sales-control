@@ -1,18 +1,85 @@
 .nav-header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  background-color: #111827;
+  gap: 1rem;
+  background: linear-gradient(90deg, var(--header), var(--header-2));
   color: white;
-  padding: 10px;
+  padding: 0.85rem clamp(1rem, 3vw, 2rem);
+  border-bottom: 1px solid rgb(255 255 255 / 0.06);
 }
 
-.nav-header div, .nav-header a {
+.nav-header .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
-}
-
-.nav-header a {
+  gap: 0.75rem;
   text-decoration: none;
   color: white;
+}
+
+.brand-mark {
+  width: 2.4rem;
+  height: 2.4rem;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--accent);
+  font-size: 1.15rem;
+}
+
+.nav-header h1 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.nav-header small {
+  display: block;
+  color: #94a3b8;
+  font-size: 0.72rem;
+}
+
+.header-nav {
+  display: flex;
+  gap: 0.35rem;
+  flex: 1;
+  justify-content: center;
+}
+
+.header-nav a {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+}
+
+.header-nav a.active,
+.header-nav a:hover {
+  background: rgb(255 255 255 / 0.08);
+  color: white;
+}
+
+.profile-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: white;
+  text-decoration: none;
+  background: rgb(255 255 255 / 0.08);
+  border-radius: 999px;
+  padding: 0.4rem 0.75rem;
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+
+.profile-chip i {
+  font-size: 1.15rem;
+}
+
+@media (max-width: 860px) {
+  .header-nav {
+    display: none;
+  }
 }

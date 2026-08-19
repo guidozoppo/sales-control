@@ -1,9 +1,15 @@
 .footer-container {
   display: flex;
-  width: calc(100% - 20px);
   justify-content: space-between;
-  padding: 10px;
-  background-color: #111827;
-  color: white;
   align-items: center;
+  gap: 1rem;
+  padding: 0.85rem clamp(1rem, 3vw, 2rem);
+  background: var(--header);
+  color: #94a3b8;
+  font-size: 0.88rem;
+}
+
+.footer-container strong {
+  color: white;
+  font-weight: 600;
 }

@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 export const Inventory = () => {
   useEffect(() => {
-    document.title = 'Inventory - Sales Control';
+    document.title = 'Inventario - Sales Control';
   }, []); 
 
   const products = useAppSelector((state) => state.products)
@@ -19,12 +19,19 @@ export const Inventory = () => {
   return (
     <main className='main-customers'>
       <header className='header-customers'>
-        <Link to="/" style={{color: "#000000", textDecoration: "none", fontFamily: "cursive", fontSize: "1.2rem"}}>X</Link>
-        <h1>Inventory</h1>
+        <div className="title-with-back">
+          <Link className="close-link" to="/" aria-label="Volver">
+            <i className="bi bi-arrow-left"></i>
+          </Link>
+          <div>
+            <h1>Inventario</h1>
+            <p className="page-kicker">{products.length} productos</p>
+          </div>
+        </div>
         <Link className="add-action" to='/createProduct'>
           <button>
-            <i className="bi bi-plus"></i>
-            Add Product
+            <i className="bi bi-plus-lg"></i>
+            Agregar producto
           </button>
         </Link>
       </header>
@@ -34,16 +41,15 @@ export const Inventory = () => {
           <thead>
             <tr>
               <th className='column-number'>N°</th>
-              <th className='column-name'>Name</th>
-              <th className='column-price'>Price</th>
+              <th className='column-name'>Nombre</th>
+              <th className='column-price'>Precio</th>
               <th className='column-stock'>Stock</th>
-              <th className='column-category'>Category</th>
-              <th className='column-expire'>Expire Date</th>
-              <th className='column-actions'>Actions</th>
+              <th className='column-category'>Categoría</th>
+              <th className='column-expire'>Vencimiento</th>
+              <th className='column-actions'>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            
             {products.map( p => (
               <ProductRowInventory 
                 product={p} 
@@ -53,9 +59,15 @@ export const Inventory = () => {
             ))}
           </tbody>
         </table>
-        : <h1>There aren't products registered in the inventory</h1>
+        : (
+          <div className="empty-state card" style={{width: 'min(1100px, 100%)'}}>
+            <i className="bi bi-box-seam"></i>
+            <h2>El inventario está vacío</h2>
+            <p>Cargá el primer producto para empezar a vender.</p>
+          </div>
+        )
         }
       </div>
     </main>
   )
-} 
+}

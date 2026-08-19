@@ -52,14 +52,14 @@ export const AddCustomer = () => {
     <main className='main-container'>
       <div className='form-base'>
         <div className='close-button'>
-          <Link to="/customers">
-            x
+          <Link to="/customers" aria-label="Cerrar">
+            <i className="bi bi-x-lg"></i>
           </Link>
         </div>
-        <h1>Add new customer</h1>
+        <h1>Nuevo cliente</h1>
         <form onSubmit={handleAddCustomer} action="">
           <div>
-            <label htmlFor="customerName">Name*</label>
+            <label htmlFor="customerName">Nombre*</label>
             <input 
               type="text"
               id="customerName"
@@ -79,7 +79,7 @@ export const AddCustomer = () => {
             />
           </div>
           <div>
-            <label htmlFor="customerPhone">Phone*</label>
+            <label htmlFor="customerPhone">Teléfono*</label>
             <input
               type="number"
               id="customerPhone"
@@ -90,7 +90,7 @@ export const AddCustomer = () => {
           </div>
           {customerInfo && <p className='formsent'>{customerInfo}</p>}
           {errorInfo && <p className='dateerror'>{errorInfo}</p>}
-          <button>Add Customer</button>
+          <button><i className="bi bi-person-plus"></i> Guardar cliente</button>
         </form>
       </div>
     </main>

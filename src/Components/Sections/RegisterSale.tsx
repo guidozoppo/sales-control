@@ -135,22 +135,23 @@ export const RegisterSale = () => {
     <main className="main-container">
       <div className="container-registerSale">
         <div className='close-button'>
-          <Link to="/">
-            x
+          <Link to="/" aria-label="Cerrar">
+            <i className="bi bi-x-lg"></i>
           </Link>
-          </div>
-        <h1>Register a sale</h1>
+        </div>
+        <h1>Registrar venta</h1>
+        <p className="form-subtitle">Seleccioná cliente, fecha y productos</p>
         <form action="" onSubmit={handleSubmit}>
           <div className="data-sale">
             {<div>
-              <label htmlFor="customerName">Customer</label>
+              <label htmlFor="customerName">Cliente</label>
               <select 
                 value={customerId || "Select a customer"}
                 id='customerName'
                 onChange={(e) => setCustomerId(parseInt(e.target.value))} 
                 autoComplete="off"
                 >
-                  <option disabled>Select a customer</option>
+                  <option disabled>Elegí un cliente</option>
                   {customers.map((customer, index) => {
                     return(
                       <option key={index} value={customer.id}>{customer.name}</option>
@@ -159,7 +160,7 @@ export const RegisterSale = () => {
               </select>
             </div>}
             <div>
-              <label htmlFor="saleDate">Sale Date</label>
+              <label htmlFor="saleDate">Fecha</label>
               <input 
                 type="date" 
                 id="saleDate"
@@ -182,10 +183,10 @@ export const RegisterSale = () => {
             ))}
           </div>
           {dataError && <p className='dataerror'>{dataError}</p>}
-          <p>TOTAL: ${saleTotal}</p>
+          <p className="sale-total">Total <strong>${saleTotal.toFixed(2)}</strong></p>
           <div className="buttons-container">
-            <button type="submit">Register Sale</button>
-            <button type="button" onClick={addProductRow}>Add Product</button>
+            <button type="submit"><i className="bi bi-check2-circle"></i> Registrar</button>
+            <button type="button" className="btn-secondary" onClick={addProductRow}><i className="bi bi-plus-lg"></i> Producto</button>
           </div>
         </form>
       </div>

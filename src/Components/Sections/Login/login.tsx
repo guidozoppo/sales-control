@@ -3,7 +3,6 @@ import './login.css';
 import { useState } from 'react';
 
 export const Login = () => {
-  // CHEQUEAR SI EL USUARIO ESTÁ LOGUEADO, SI ESTÁ LOGUEADO MANDAR AL HOME DE UNA
   const [loginInfo, setLoginInfo] = useState("");
   const navigate = useNavigate();
   const handleSubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
@@ -15,16 +14,10 @@ export const Login = () => {
   }
 
   const checkLoginInfo = (email: string, password: string) => {
-    // const existEmailINBD = check if exists email in bd
-    /*if (!existEmailINBD) {
-      setLoginInfo('Email not registered');
-      return;
-    }*/
-    
-    const passwordBD = "asdasd";  //buscar la contraseña con el mail en la bd
+    const passwordBD = "asdasd";
 
     if (password !== passwordBD) {
-      setLoginInfo("Wrong password");
+      setLoginInfo("Contraseña incorrecta");
       return;
     }
 
@@ -35,24 +28,29 @@ export const Login = () => {
   return (
     <div className="login-container">
       <div className='welcome-container'>
-        <h1>WELCOME TO SALES CONTROL</h1>
+        <span className="brand-mark">
+          <i className="bi bi-graph-up-arrow"></i>
+        </span>
+        <p className="eyebrow">Sales Control</p>
+        <h1>Controlá tus ventas desde un solo lugar</h1>
+        <p>Inventario, clientes y reportes en un panel simple para el día a día.</p>
       </div>
       <div className='form-container'>
         <form onSubmit={handleSubmitLogin}>
-          <h2>LOGIN</h2>
-          <div>
-            <input name='email' placeholder='Email Adress' type="mail" />
-          </div>
-          <div>
-            <input name='password' placeholder='Password' type="password" />
-          </div>
-          <button>Login</button>
+          <h2>Ingresar</h2>
+          <p className="form-subtitle">Usá tu email y contraseña para continuar</p>
+          <label htmlFor="email">Email</label>
+          <input id="email" name='email' placeholder='leo.a@example.org' type="email" />
+          <label htmlFor="password">Contraseña</label>
+          <input id="password" name='password' placeholder='••••••••' type="password" />
+          <button type="submit">
+            <i className="bi bi-box-arrow-in-right"></i>
+            Entrar
+          </button>
           <div className='loginInfo'>
             {loginInfo && <h4>{loginInfo}</h4>}
           </div>
-          <Link to="/resetPassword">
-            <h4>Forgot Password?</h4>
-          </Link>
+          <Link to="/resetPassword">¿Olvidaste tu contraseña?</Link>
         </form>
       </div>
     </div>

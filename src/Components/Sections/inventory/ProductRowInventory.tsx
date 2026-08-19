@@ -1,3 +1,4 @@
+import React from 'react'
 import { Link } from 'react-router-dom'
 import '../Customer/CustomerRow.css'
 
@@ -7,19 +8,30 @@ interface Props {
 }
 
 export const ProductRowInventory: React.FC<Props> = ({product, handleDeleteProduct}) => {
+  const lowStock = product.stock <= 5;
+
   return (
     <tr key={product.id}>
       <td>{product.id}</td>
-      <td>{product.name}</td>
-      <td>{product.unitPrice}</td>
-      <td>{product.stock}</td>
+      <td>
+        <div className="name-cell">
+          <span className="avatar"><i className="bi bi-box"></i></span>
+          {product.name}
+        </div>
+      </td>
+      <td>${Number(product.unitPrice).toFixed(2)}</td>
+      <td>
+        <span className={`badge ${lowStock ? 'badge-warn' : 'badge-ok'}`}>{product.stock}</span>
+      </td>
       <td>{product.category}</td>
-      {<td>{product.expire ? product.expire : '-'}</td>}
+      <td>{product.expire ? product.expire : '-'}</td>
       <td className='td-actions'>
-        <Link to={`/editInventoryItem/${product.id}`} >
+        <Link to={`/editInventoryItem/${product.id}`} aria-label="Editar producto">
           <i id={product.id.toString()} className="bi bi-pencil-square"></i>
         </Link>
-        <i onClick={handleDeleteProduct} id={product.id.toString()} className="bi bi-trash"></i>
+        <button type="button" className="icon-danger" onClick={handleDeleteProduct} id={product.id.toString()} aria-label="Eliminar producto">
+          <i className="bi bi-trash"></i>
+        </button>
       </td>
     </tr>
   )

@@ -1,54 +1,320 @@
-body {
-  margin: 0;
-}
-
-.main-app {
+.app-shell {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  background: var(--bg);
+}
+
+.app-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.page-shell,
+.main-container,
+.main-customers,
+.mainmenu-container {
+  flex: 1;
+  width: 100%;
+  background: var(--bg);
+  padding: 1.5rem clamp(1rem, 3vw, 2.5rem) 2rem;
 }
 
 .main-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
-  background-color: #F3F4F6;
+  overflow-y: auto;
 }
 
-.form-base {
+.page-header,
+.header-customers {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  background-color: #FFFFFF;
-  width: 50%;
-  border-radius: calc(0.5rem - 2px);
-  box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000, 0 0 #0000, 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  padding: 1.5rem 0;
-  margin: 1.5rem 0;
-  position: relative;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  width: 100%;
 }
 
-.form-base form {
+.title-with-back {
   display: flex;
-  flex-direction: column;
-  gap: 15px;
-  width: 50%;
+  align-items: center;
+  gap: 0.85rem;
 }
 
-.form-base button {
-  color: #fafafa;
-  padding: 0.5rem 1rem;
-  border-radius: calc(0.5rem - 2px);
-  background-color: #18181b;
+.page-header h1,
+.header-customers h1,
+.form-base h1,
+.page-title {
+  font-size: 1.65rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.page-kicker {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-top: 0.2rem;
+}
+
+.close-button,
+.close-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--ink);
+  text-decoration: none;
+  box-shadow: var(--shadow);
+}
+
+.close-button {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  font-size: 1rem;
+}
+
+.close-button a {
+  display: flex;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.btn,
+.header-customers button,
+.form-base button,
+.buttons-container button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border: 0;
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 1.05rem;
+  background: var(--ink);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
   cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.15s ease, background 0.15s ease;
 }
 
-.form-base h1 {
-  text-align: center;
-  width: 70%;
+.btn:hover,
+.header-customers button:hover,
+.form-base button:hover,
+.buttons-container button:hover {
+  background: #1e293b;
+  transform: translateY(-1px);
+}
+
+.btn-secondary,
+.buttons-container .btn-secondary,
+.form-base .btn-secondary {
+  background: #fff;
+  color: var(--ink);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: #f8fafc;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--muted);
 }
 
 a.add-action {
   text-decoration: none;
+}
+
+.card,
+.form-base,
+.container-registerSale,
+.table-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.form-base,
+.container-registerSale {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(720px, 100%);
+  padding: 2.25rem 1.5rem 1.75rem;
+  margin: 0 auto;
+}
+
+.form-base form,
+.container-registerSale form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: min(420px, 100%);
+}
+
+.form-base form > div,
+.container-registerSale .data-sale > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form-base h1,
+.container-registerSale h1 {
+  text-align: center;
+  margin-bottom: 0.35rem;
+  width: 100%;
+}
+
+.form-subtitle {
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.buttons-container {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.buttons-container a,
+.buttons-container button {
+  flex: 1;
+  margin: 0;
+  width: 100%;
+}
+
+.table-customers {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow: auto;
+}
+
+.table-customers table {
+  width: min(1100px, 100%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+}
+
+.table-customers th {
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: #f8fafc;
+}
+
+.table-customers th,
+.table-customers td {
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.table-customers tr:last-child td {
+  border-bottom: 0;
+}
+
+.table-customers tbody tr:hover td {
+  background: #f8fafc;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 650;
+}
+
+.badge-ok {
+  background: #ecfdf5;
+  color: var(--success);
+}
+
+.badge-warn {
+  background: #fff7ed;
+  color: var(--warning);
+}
+
+.badge-muted {
+  background: #f1f5f9;
+  color: var(--muted);
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 3.5rem 1rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.empty-state i {
+  font-size: 2rem;
+  color: var(--accent);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.stat-card {
+  padding: 1.1rem 1.2rem;
+}
+
+.stat-card span {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.stat-card strong {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 1.5rem;
+  letter-spacing: -0.03em;
+}
+
+@media (max-width: 720px) {
+  .form-base form,
+  .container-registerSale form {
+    width: 100%;
+  }
+
+  .page-header,
+  .header-customers {
+    flex-wrap: wrap;
+  }
 }

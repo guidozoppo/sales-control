@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import './Header.css'
 
 export const Header = () => {
@@ -6,16 +6,32 @@ export const Header = () => {
   
   return (
     <header className='nav-header'>
-      <div>
-        <Link to='/'>
-          <i className="bi bi-box"></i>
+      <Link className="brand" to='/'>
+        <span className="brand-mark">
+          <i className="bi bi-graph-up-arrow"></i>
+        </span>
+        <div>
           <h1>Sales Control</h1>
+          <small>Panel de gestión</small>
+        </div>
+      </Link>
+
+      {location.pathname !== '/login' && (
+        <nav className="header-nav">
+          <NavLink to="/" end>Inicio</NavLink>
+          <NavLink to="/registerSale">Ventas</NavLink>
+          <NavLink to="/inventory">Inventario</NavLink>
+          <NavLink to="/customers">Clientes</NavLink>
+          <NavLink to="/salesReports">Reportes</NavLink>
+        </nav>
+      )}
+
+      {location.pathname !== '/login' && (
+        <Link className="profile-chip" to="/login">
+          <i className="bi bi-person-circle"></i>
+          <span>Perfil</span>
         </Link>
-      </div>
-      {location.pathname != '/login' && <div>
-        <i className="bi bi-person"></i>
-        <p>Profile</p>
-      </div>}
+      )}
     </header>
   )
 }

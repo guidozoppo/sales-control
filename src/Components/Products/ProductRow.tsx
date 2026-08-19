@@ -59,9 +59,9 @@ export const ProductRow: React.FC<Props> = ({ index, product, handleProductChang
   }
   
   return (
-    <div className="product row" style={{ display: 'flex'}}>
+    <div className="product-row">
       <div>
-          <label htmlFor={`productName-${index}`}>Product</label>
+          <label htmlFor={`productName-${index}`}>Producto</label>
           <select 
             value={productName || "Select a product"}
             name="name"
@@ -69,7 +69,7 @@ export const ProductRow: React.FC<Props> = ({ index, product, handleProductChang
             onChange={(e) => handleProductNameChange(e)}
             autoComplete="off"
           >
-            <option disabled>Select a product</option>
+            <option disabled>Elegí un producto</option>
             {inventory.map((product, index) => {
               return (
                 <option key={index} value={product.name}>{product.name}</option>
@@ -78,7 +78,7 @@ export const ProductRow: React.FC<Props> = ({ index, product, handleProductChang
           </select>
         </div>
         <div>
-          <label htmlFor={`quantity-${index}`}>Quantity</label>
+          <label htmlFor={`quantity-${index}`}>Cantidad</label>
           <input
             disabled={productName === ''}
             title="Disabled because you have to select a product"
@@ -93,7 +93,7 @@ export const ProductRow: React.FC<Props> = ({ index, product, handleProductChang
           />
         </div>
         <div>
-          <label htmlFor={`unitPrice-${index}`}>Unit Price</label>
+          <label htmlFor={`unitPrice-${index}`}>Precio unitario</label>
           <input
             readOnly
             type="number" 

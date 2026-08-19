@@ -1,23 +1,30 @@
-input, select, option {
-  padding: 0.5rem 0.75rem;
-  border-color: #e4e4e7;
-  border-width: 1px;
-  border-radius: calc(0.5rem - 2px);
-  border-style: solid;
+input,
+select {
+  width: 100%;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  color: var(--ink);
+}
+
+input:disabled {
+  background: #f8fafc;
+  color: var(--muted);
 }
 
 .dataerror {
-  color: red;
-  font-weight: bold;
+  color: var(--danger);
+  font-weight: 650;
   margin: 0;
 }
 
 .formsent {
-  color: green;
-  font-weight: bold;
+  color: var(--success);
+  font-weight: 650;
   margin: 0;
 }
 
 div .inputError {
-  border-color: 1px solid red;
+  border-color: var(--danger);
 }

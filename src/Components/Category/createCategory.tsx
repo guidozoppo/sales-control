@@ -44,14 +44,14 @@ export const CreateCategory = () => {
     <main className="main-container">
       <div className="form-base">
         <div className='close-button'>
-          <Link to="/createProduct">
-            x
+          <Link to="/createProduct" aria-label="Cerrar">
+            <i className="bi bi-x-lg"></i>
           </Link>
         </div>
-        <h1>Create Category</h1>
+        <h1>Nueva categoría</h1>
         <form action="" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="name">Category Name</label>
+            <label htmlFor="name">Nombre</label>
             <input 
               type="text" 
               id="name"
@@ -63,7 +63,7 @@ export const CreateCategory = () => {
           </div>
           {productInfo && <p className='formsent'>{productInfo}</p>}
           {errorInfo && <p className='dataerror'>{errorInfo}</p>}
-          <button type="submit">Add Category</button>
+          <button type="submit"><i className="bi bi-check2"></i> Guardar categoría</button>
         </form>
       </div>
     </main>

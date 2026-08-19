@@ -71,10 +71,15 @@ export const EditInventoryItem = () => {
   return (
     <main className="main-container">
       <div className="form-base">
-        <h1>Edit Product {productToEdit?.name}</h1>
+        <div className='close-button'>
+          <Link to="/inventory" aria-label="Cerrar">
+            <i className="bi bi-x-lg"></i>
+          </Link>
+        </div>
+        <h1>Editar {productToEdit?.name}</h1>
         <form action="" onSubmit={handleEditItem}>
           <div>
-            <label htmlFor="name">Product</label>
+            <label htmlFor="name">Producto</label>
             <input
               type="text" 
               id="name"
@@ -108,7 +113,7 @@ export const EditInventoryItem = () => {
             />
           </div>
           <div>
-            <label htmlFor="category">Category</label>
+            <label htmlFor="category">Categoría</label>
             <select 
               name="category" 
               value={newDataItem.category || categories[0].name} 
@@ -126,7 +131,7 @@ export const EditInventoryItem = () => {
             </select>
           </div>
           <div>
-            <label htmlFor="expire">Expired Date</label>
+            <label htmlFor="expire">Vencimiento</label>
             <input 
               type="date"
               id="expire"
@@ -138,10 +143,10 @@ export const EditInventoryItem = () => {
           {dataError && <p className='dataerror'>{dataError}</p>}
           {productInfo && <p className='formsent'>{productInfo}</p>}
           <div className="buttons-container">
-            <button type="submit">Edit Product</button>
+            <button type="submit"><i className="bi bi-check2"></i> Guardar</button>
             <Link to='/inventory'>
-              <button>
-                Cancel
+              <button type="button" className="btn-secondary">
+                Cancelar
               </button>
             </Link>
           </div>

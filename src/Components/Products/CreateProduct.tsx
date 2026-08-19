@@ -53,14 +53,15 @@ export const CreateProduct = () => {
     <main className="main-container">
       <div className="form-base">
         <div className='close-button'>
-          <Link to="/inventory">
-            x
+          <Link to="/inventory" aria-label="Cerrar">
+            <i className="bi bi-x-lg"></i>
           </Link>
         </div>
-        <h1>Create Product</h1>
+        <h1>Nuevo producto</h1>
+        <p className="form-subtitle">Completá stock, precio y categoría</p>
         <form action="" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="name">Product</label>
+            <label htmlFor="name">Producto</label>
             <input 
               type="text" 
               id="name"
@@ -94,7 +95,7 @@ export const CreateProduct = () => {
             />
           </div>
           <div>
-            <label htmlFor="category">Category</label>
+            <label htmlFor="category">Categoría</label>
             <select name="category" id="" onChange={handleChange}>
               {categories.map( (category, index) => {
                 return(
@@ -109,7 +110,7 @@ export const CreateProduct = () => {
             </select>
           </div>
           <div>
-            <label htmlFor="expire">Expired Date</label>
+            <label htmlFor="expire">Vencimiento</label>
             <input type="date" 
               id="expire"
               name="expire"
@@ -119,10 +120,10 @@ export const CreateProduct = () => {
           {dateError && <p className='dataerror'>{dateError}</p>}
           {productInfo && <p className='formsent'>{productInfo}</p>}
           <div className="buttons-container">
-            <button type="submit">Add Product</button>
+            <button type="submit"><i className="bi bi-check2"></i> Guardar</button>
             <Link to='/createCategory'>
-              <button>
-                Add Category
+              <button type="button" className="btn-secondary">
+                <i className="bi bi-tags"></i> Categoría
               </button>
             </Link>
           </div>
