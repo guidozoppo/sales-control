@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useAppSelector } from "../../../hooks/store";
 import { useEffect, useState } from "react";
 import { useProductActions } from "../../../store/products/hooks/useProductActions";
+import { REQUIRED_FORM_MESSAGE, fieldClass, isBlank } from "../../../utils/formValidation";
 
 export const EditInventoryItem = () => {
   useEffect(() => {
@@ -16,42 +17,47 @@ export const EditInventoryItem = () => {
   const [newDataItem, setNewDataItem] = useState(productToEdit);
   const [dataError, setDataError] = useState('');
   const [productInfo, setProductInfo] = useState('');
+  const [fieldErrors, setFieldErrors] = useState({
+    name: false,
+    stock: false,
+    unitPrice: false,
+    category: false,
+  });
   
   const handleEditItem = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { name, expire, stock, unitPrice, category } = newDataItem;
+    const errors = {
+      name: isBlank(name),
+      stock: isBlank(stock) || Number(stock) < 1,
+      unitPrice: isBlank(unitPrice) || Number(unitPrice) <= 0,
+      category: isBlank(category),
+    };
 
-    if (expire != null && new Date(expire) < new Date()) {
-      setDataError("Expire date is expired.");
-      setProductInfo('');
+    setFieldErrors(errors);
+    setProductInfo('');
+
+    if (errors.name || errors.stock || errors.unitPrice || errors.category) {
+      setDataError(REQUIRED_FORM_MESSAGE);
       return;
     }
 
-    if (name === '' || stock.toString() === '' || 
-        unitPrice.toString() === '' || category === '' || expire === '') {
-      setDataError('Error. Some field is empty.');
-      setProductInfo('');
+    if (expire != null && expire !== '' && new Date(expire) < new Date()) {
+      setDataError("La fecha de vencimiento ya pasó.");
       return;
     }
 
     if ( productToEdit.name === name &&
          productToEdit.expire === expire &&
-         productToEdit.stock === stock &&
-         productToEdit.unitPrice === unitPrice &&
+         Number(productToEdit.stock) === Number(stock) &&
+         Number(productToEdit.unitPrice) === Number(unitPrice) &&
          productToEdit.category === category
         ) {
-     setDataError("Error to edit. All fields have same values that previously");
-     setProductInfo('');
+     setDataError("No hay cambios para guardar.");
      return;
    }
-    
-    if (unitPrice < 0 || stock < 0) {
-      setDataError('Price or stock are negative.');
-      setProductInfo('');
-      return;
-    }
 
-    setProductInfo(`Product ${name} edited`);
+    setProductInfo(`Producto ${name} actualizado`);
     editProduct(newDataItem);
     setDataError(''); 
   }
@@ -66,6 +72,7 @@ export const EditInventoryItem = () => {
     }
 
     setNewDataItem(newValues);
+    setFieldErrors((prev) => ({ ...prev, [name]: false }));
   }
 
   return (
@@ -77,20 +84,21 @@ export const EditInventoryItem = () => {
           </Link>
         </div>
         <h1>Editar {productToEdit?.name}</h1>
-        <form action="" onSubmit={handleEditItem}>
+        <form action="" onSubmit={handleEditItem} noValidate>
           <div>
-            <label htmlFor="name">Producto</label>
+            <label htmlFor="name">Producto *</label>
             <input
               type="text" 
               id="name"
               name="name"
               placeholder="Manzana"
               value={newDataItem?.name}
+              className={fieldClass(fieldErrors.name)}
               onChange={handleChange}
               />
           </div>
           <div>
-            <label htmlFor="stock">Stock</label>
+            <label htmlFor="stock">Stock *</label>
             <input 
               type="number" 
               id="stock"
@@ -98,26 +106,33 @@ export const EditInventoryItem = () => {
               placeholder="10"
               min={1}
               value={newDataItem?.stock}
+              className={fieldClass(fieldErrors.stock)}
               onChange={handleChange}
             />
           </div>
           <div>
-            <label htmlFor="unitPrice">Price</label>
+            <label htmlFor="unitPrice">Precio *</label>
             <input 
               type="number" 
               id="unitPrice"
               name="unitPrice"
               placeholder="100"
+              min={0.01}
+              step="0.01"
               value={newDataItem?.unitPrice}
+              className={fieldClass(fieldErrors.unitPrice)}
               onChange={handleChange}
             />
           </div>
           <div>
-            <label htmlFor="category">Categoría</label>
+            <label htmlFor="category">Categoría *</label>
             <select 
-              name="category" 
-              value={newDataItem.category || categories[0].name} 
+              name="category"
+              id="category"
+              value={newDataItem.category || ''} 
+              className={fieldClass(fieldErrors.category)}
               onChange={handleChange}>
+              <option value="" disabled>Elegí una categoría</option>
               {categories.map( (category, index) => {
                 return(
                   <option 

@@ -6,9 +6,10 @@ interface Props {
   product: SaleProduct,
   handleProductChange: (index: number, e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>, unitPrice: number) => void
   setProductError: (index: number, hasError: boolean) => void,
+  highlightEmpty?: boolean,
 }
 
-export const ProductRow: React.FC<Props> = ({ index, product, handleProductChange, setProductError}) => {
+export const ProductRow: React.FC<Props> = ({ index, product, handleProductChange, setProductError, highlightEmpty}) => {
   const inventory = useAppSelector((state) => state.products);
   const [productName, setProductName] = useState("");
   const [productQuantity, setProductQuantity] = useState(1);
@@ -63,13 +64,14 @@ export const ProductRow: React.FC<Props> = ({ index, product, handleProductChang
       <div>
           <label htmlFor={`productName-${index}`}>Producto</label>
           <select 
-            value={productName || "Select a product"}
+            value={productName || ''}
             name="name"
             id={`productName-${index}`}
+            className={highlightEmpty && !productName ? 'inputError' : undefined}
             onChange={(e) => handleProductNameChange(e)}
             autoComplete="off"
           >
-            <option disabled>Elegí un producto</option>
+            <option value="" disabled>Elegí un producto</option>
             {inventory.map((product, index) => {
               return (
                 <option key={index} value={product.name}>{product.name}</option>
