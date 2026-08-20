@@ -5,10 +5,8 @@ export const Footer = () => {
 
   return (
     <footer className='footer-container'>
-      <div>© {currentYear} - Sales Control</div>
-      <div>
-        <p>Developed by Guido Zoppo</p>
-      </div>
+      <div>© {currentYear} · <strong>Sales Control</strong></div>
+      <div>Desarrollado por Guido Zoppo</div>
     </footer>
   )
 }

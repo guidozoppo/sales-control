@@ -1,11 +1,45 @@
 .td-actions {
   display: flex;
   align-items: center;
-  gap: 20px;
-  min-height: 4em;
+  gap: 0.55rem;
+  min-height: 3.4em;
 }
 
-.td-actions i {
+.td-actions a,
+.td-actions .icon-danger {
+  width: 2rem;
+  height: 2rem;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  color: var(--ink);
+  background: #f1f5f9;
+  border: 0;
   cursor: pointer;
-  color: black;
+}
+
+.td-actions .icon-danger {
+  color: var(--danger);
+}
+
+.td-actions a:hover {
+  background: #e2e8f0;
+}
+
+.name-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-weight: 650;
+}
+
+.avatar {
+  width: 1.85rem;
+  height: 1.85rem;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: #dbeafe;
+  color: var(--accent);
+  font-size: 0.8rem;
 }

@@ -5,6 +5,7 @@ import { ProductRow } from "../Products/ProductRow";
 import { useAppSelector } from "../../hooks/store";
 import { useSaleActions } from "../../store/sales/hooks/useSaleAction";
 import { Link } from 'react-router-dom';
+import { REQUIRED_FORM_MESSAGE, fieldClass, isBlank } from '../../utils/formValidation';
 
 export const RegisterSale = () => {
   useEffect(() => {
@@ -29,6 +30,7 @@ export const RegisterSale = () => {
 
   const [products, setProducts] = useState<SaleProduct[]>(initialProducts);
   const [productErrors, setProductErrors] = useState<boolean[]>(new Array(products.length).fill(false));
+  const [fieldErrors, setFieldErrors] = useState({ customer: false, date: false, products: false });
 
   useEffect(() => {
     //calcula el nuevo total cuando algo de los productos cambia
@@ -49,22 +51,32 @@ export const RegisterSale = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    
-    const hasErrors = productErrors.some((error) => error);
-    
-    if (hasErrors) {
-      setDataError("There are issues with some product quantities.");
-      return;
-    } else if (!hasProductSelected()) {
-      setDataError("You've to select a product.");
+
+    const missingCustomer = customerId === null;
+    const missingDate = isBlank(formatDate(saleDate));
+    const missingProducts = !hasProductSelected();
+    const quantityErrors = productErrors.some((error) => error);
+
+    setFieldErrors({
+      customer: missingCustomer,
+      date: missingDate,
+      products: missingProducts,
+    });
+
+    if (missingCustomer || missingDate || missingProducts) {
+      setDataError(REQUIRED_FORM_MESSAGE);
       return;
     }
-    else {
-      setDataError('Sale registered');
-      createSale();
-      alert('Sale registered');
-      resetForm();
+
+    if (quantityErrors) {
+      setDataError("Hay productos con problemas con el stock ingresado. Corrigelo para poder continuar.");
+      return;
     }
+
+    setDataError('');
+    createSale();
+    alert('Venta registrada');
+    resetForm();
   }
   
   const hasProductSelected = () => products.some( p => p.name !== "");
@@ -129,28 +141,34 @@ export const RegisterSale = () => {
     setDataError('');
     setSaleDate(currentDate);
     setCustomerId(null);
+    setFieldErrors({ customer: false, date: false, products: false });
   }
   
   return (
     <main className="main-container">
       <div className="container-registerSale">
         <div className='close-button'>
-          <Link to="/">
-            x
+          <Link to="/" aria-label="Cerrar">
+            <i className="bi bi-x-lg"></i>
           </Link>
-          </div>
-        <h1>Register a sale</h1>
-        <form action="" onSubmit={handleSubmit}>
+        </div>
+        <h1>Registrar venta</h1>
+        <p className="form-subtitle">Seleccioná cliente, fecha y productos</p>
+        <form action="" onSubmit={handleSubmit} noValidate>
           <div className="data-sale">
             {<div>
-              <label htmlFor="customerName">Customer</label>
+              <label htmlFor="customerName">Cliente *</label>
               <select 
-                value={customerId || "Select a customer"}
+                value={customerId ?? ''}
                 id='customerName'
-                onChange={(e) => setCustomerId(parseInt(e.target.value))} 
+                className={fieldClass(fieldErrors.customer)}
+                onChange={(e) => {
+                  setCustomerId(parseInt(e.target.value));
+                  setFieldErrors((prev) => ({ ...prev, customer: false }));
+                }} 
                 autoComplete="off"
                 >
-                  <option disabled>Select a customer</option>
+                  <option value="" disabled>Elegí un cliente</option>
                   {customers.map((customer, index) => {
                     return(
                       <option key={index} value={customer.id}>{customer.name}</option>
@@ -159,11 +177,12 @@ export const RegisterSale = () => {
               </select>
             </div>}
             <div>
-              <label htmlFor="saleDate">Sale Date</label>
+              <label htmlFor="saleDate">Fecha *</label>
               <input 
                 type="date" 
                 id="saleDate"
                 name="saleDate"
+                className={fieldClass(fieldErrors.date)}
                 value={formatDate(saleDate)}
                 onChange={(e) => setSaleDate(e.target.value)}
                 placeholder=""
@@ -178,14 +197,15 @@ export const RegisterSale = () => {
                 product={product}
                 handleProductChange={handleProductChange}
                 setProductError={setProductError}
+                highlightEmpty={fieldErrors.products}
               />
             ))}
           </div>
           {dataError && <p className='dataerror'>{dataError}</p>}
-          <p>TOTAL: ${saleTotal}</p>
+          <p className="sale-total">Total <strong>${saleTotal.toFixed(2)}</strong></p>
           <div className="buttons-container">
-            <button type="submit">Register Sale</button>
-            <button type="button" onClick={addProductRow}>Add Product</button>
+            <button type="submit"><i className="bi bi-check2-circle"></i> Registrar</button>
+            <button type="button" className="btn-secondary" onClick={addProductRow}><i className="bi bi-plus-lg"></i> Producto</button>
           </div>
         </form>
       </div>

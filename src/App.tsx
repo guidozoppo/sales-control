@@ -1,9 +1,10 @@
 import { Header } from "./Components/commonComponents/Header"
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import './styles/Input.css'
 import { MainMenu } from "./Components/MainMenu";
 import './App.css'
 import { Footer } from "./Components/commonComponents/Footer";
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { RegisterSale } from "./Components/Sections/RegisterSale";
 import { CreateProduct } from "./Components/Products/CreateProduct";
 import { Customers } from "./Components/Sections/Customer/Customers"
@@ -16,9 +17,13 @@ import { EditCustomer } from "./Components/Sections/Customer/EditCustomer";
 import { Login } from "./Components/Sections/Login/login";
 
 function App() {
+  const { pathname } = useLocation();
+  const isLogin = pathname === '/login';
+
   return (
-    <main className="main-app">
-      <Header />
+    <div className={`app-shell${isLogin ? ' is-login' : ''}`}>
+      {!isLogin && <Header />}
+      <div className="app-content">
         <Routes>
           <Route path="/" element={<MainMenu />}/>
           <Route path="/login" element={<Login />}/>
@@ -32,8 +37,9 @@ function App() {
           <Route path="/editCustomer/:id" element={<EditCustomer />}/>
           <Route path="/salesReports" element={<SalesReports />}/>
         </Routes>
-      <Footer />
-    </main>
+      </div>
+      {!isLogin && <Footer />}
+    </div>
   )
 }
 

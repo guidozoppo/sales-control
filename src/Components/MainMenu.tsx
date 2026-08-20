@@ -10,19 +10,23 @@ export const MainMenu = () => {
   
   return (
     <main className="mainmenu-container">
-      <h2>Main Menu</h2>
+      <div className="hero">
+        <p className="eyebrow">Dashboard</p>
+        <h2>¿Qué querés hacer hoy?</h2>
+        <p>Registrá ventas, controlá stock, administrá clientes y mirá el rendimiento del negocio.</p>
+      </div>
       <section className="actions-container">
         <Link to="/registerSale">
-          <ActionMenu icon={<i style={{backgroundColor: "#3B82F6"}} className="bi bi-currency-dollar"></i>} title="Register Sale" description="Record new sales transactions"/>
+          <ActionMenu icon="bi-receipt" accent="blue" title="Registrar venta" description="Cargá una nueva transacción con productos y cliente"/>
         </Link>
         <Link to='/inventory'>
-          <ActionMenu icon={<i style={{backgroundColor: "#22C55E"}} className="bi bi-box"></i>} title="Inventory" description="See the inventory and manage it"/>
+          <ActionMenu icon="bi-box-seam" accent="green" title="Inventario" description="Consultá stock, precios y vencimientos"/>
         </Link>
         <Link to='/customers'>
-          <ActionMenu icon={<i style={{backgroundColor: "#EC4899"}} className="bi bi-people"></i>} title="Customers" description="Manage customer information"/>
+          <ActionMenu icon="bi-people" accent="pink" title="Clientes" description="Alta, edición y seguimiento de clientes"/>
         </Link>
         <Link to='/salesReports'>
-          <ActionMenu icon={<i style={{backgroundColor: "#EAB308"}} className="bi bi-bar-chart"></i>} title="Sales Reports" description="View sales data and analytics"/>
+          <ActionMenu icon="bi-bar-chart-line" accent="amber" title="Reportes" description="Totales, ticket promedio y listado de ventas"/>
         </Link>
       </section>
     </main>

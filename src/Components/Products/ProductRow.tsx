@@ -6,9 +6,10 @@ interface Props {
   product: SaleProduct,
   handleProductChange: (index: number, e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>, unitPrice: number) => void
   setProductError: (index: number, hasError: boolean) => void,
+  highlightEmpty?: boolean,
 }
 
-export const ProductRow: React.FC<Props> = ({ index, product, handleProductChange, setProductError}) => {
+export const ProductRow: React.FC<Props> = ({ index, product, handleProductChange, setProductError, highlightEmpty}) => {
   const inventory = useAppSelector((state) => state.products);
   const [productName, setProductName] = useState("");
   const [productQuantity, setProductQuantity] = useState(1);
@@ -36,7 +37,7 @@ export const ProductRow: React.FC<Props> = ({ index, product, handleProductChang
 
   const validateQuantity = (name: string, quantity: number) => {
     const productToCheck = inventory.find((pi) => pi.name.toLowerCase() === name.toLowerCase());
-    if (productToCheck && productToCheck.stock < quantity) {
+    if (productToCheck && (productToCheck.stock < quantity || quantity == 0 || Number.isNaN(quantity))) {
       setInputClass(true);
       setProductError(index, true);
     } else {
@@ -59,17 +60,18 @@ export const ProductRow: React.FC<Props> = ({ index, product, handleProductChang
   }
   
   return (
-    <div className="product row" style={{ display: 'flex'}}>
+    <div className="product-row">
       <div>
-          <label htmlFor={`productName-${index}`}>Product</label>
+          <label htmlFor={`productName-${index}`}>Producto</label>
           <select 
-            value={productName || "Select a product"}
+            value={productName || ''}
             name="name"
             id={`productName-${index}`}
+            className={highlightEmpty && !productName ? 'inputError' : undefined}
             onChange={(e) => handleProductNameChange(e)}
             autoComplete="off"
           >
-            <option disabled>Select a product</option>
+            <option value="" disabled>Elegí un producto</option>
             {inventory.map((product, index) => {
               return (
                 <option key={index} value={product.name}>{product.name}</option>
@@ -78,7 +80,7 @@ export const ProductRow: React.FC<Props> = ({ index, product, handleProductChang
           </select>
         </div>
         <div>
-          <label htmlFor={`quantity-${index}`}>Quantity</label>
+          <label htmlFor={`quantity-${index}`}>Cantidad</label>
           <input
             disabled={productName === ''}
             title="Disabled because you have to select a product"
@@ -93,7 +95,7 @@ export const ProductRow: React.FC<Props> = ({ index, product, handleProductChang
           />
         </div>
         <div>
-          <label htmlFor={`unitPrice-${index}`}>Unit Price</label>
+          <label htmlFor={`unitPrice-${index}`}>Precio unitario</label>
           <input
             readOnly
             type="number" 

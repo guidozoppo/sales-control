@@ -3,6 +3,7 @@ import './CreateProduct.css'
 import { useProductActions } from "../../store/products/hooks/useProductActions";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../hooks/store";
+import { REQUIRED_FORM_MESSAGE, fieldClass, isBlank } from "../../utils/formValidation";
 
 export const CreateProduct = () => {
   useEffect(() => {
@@ -22,6 +23,7 @@ export const CreateProduct = () => {
   const [values, setValues] = useState(initialValues)
   const [dateError, setDateError] = useState('')
   const [productInfo, setProductInfo] = useState('')
+  const [fieldErrors, setFieldErrors] = useState({ name: false, stock: false, unitPrice: false, category: false })
   const { addProduct } = useProductActions() 
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
@@ -33,12 +35,28 @@ export const CreateProduct = () => {
     }
 
     setValues(newValues)
+    setFieldErrors((prev) => ({ ...prev, [name]: false }))
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setProductInfo('')
 
-    if (values.expire != null && new Date(values.expire) < new Date()) {
+    const errors = {
+      name: isBlank(values.name),
+      stock: isBlank(values.stock) || Number(values.stock) < 1,
+      unitPrice: isBlank(values.unitPrice) || Number(values.unitPrice) <= 0,
+      category: isBlank(values.category),
+    };
+
+    setFieldErrors(errors);
+
+    if (errors.name || errors.stock || errors.unitPrice || errors.category) {
+      setDateError(REQUIRED_FORM_MESSAGE);
+      return;
+    }
+
+    if (values.expire != null && values.expire !== '' && new Date(values.expire) < new Date()) {
       setDateError("Estás cargando un producto vencido.")
       return;
     }
@@ -47,55 +65,69 @@ export const CreateProduct = () => {
     addProduct(values)
     setValues(initialValues);
     setDateError(''); 
+    setFieldErrors({ name: false, stock: false, unitPrice: false, category: false });
   }
 
   return (
     <main className="main-container">
       <div className="form-base">
         <div className='close-button'>
-          <Link to="/inventory">
-            x
+          <Link to="/inventory" aria-label="Cerrar">
+            <i className="bi bi-x-lg"></i>
           </Link>
         </div>
-        <h1>Create Product</h1>
-        <form action="" onSubmit={handleSubmit}>
+        <h1>Nuevo producto</h1>
+        <p className="form-subtitle">Completá stock, precio y categoría</p>
+        <form action="" onSubmit={handleSubmit} noValidate>
           <div>
-            <label htmlFor="name">Product</label>
+            <label htmlFor="name">Producto *</label>
             <input 
               type="text" 
               id="name"
               name="name"
               placeholder="Manzana"
               value={values.name}
+              className={fieldClass(fieldErrors.name)}
               onChange={handleChange}
               />
           </div>
           <div>
-            <label htmlFor="stock">Stock</label>
+            <label htmlFor="stock">Stock *</label>
             <input 
               type="number" 
               id="stock"
               name="stock"
               placeholder="10"
               min={1}
-              value={values.stock}
+              value={values.stock || ''}
+              className={fieldClass(fieldErrors.stock)}
               onChange={handleChange}
             />
           </div>
           <div>
-            <label htmlFor="unitPrice">Price</label>
+            <label htmlFor="unitPrice">Precio *</label>
             <input 
               type="number" 
               id="unitPrice"
               name="unitPrice"
               placeholder="100"
-              value={values.unitPrice}
+              min={0.01}
+              step="0.01"
+              value={values.unitPrice || ''}
+              className={fieldClass(fieldErrors.unitPrice)}
               onChange={handleChange}
             />
           </div>
           <div>
-            <label htmlFor="category">Category</label>
-            <select name="category" id="" onChange={handleChange}>
+            <label htmlFor="category">Categoría *</label>
+            <select
+              name="category"
+              id="category"
+              value={values.category}
+              className={fieldClass(fieldErrors.category)}
+              onChange={handleChange}
+            >
+              <option value="" disabled>Elegí una categoría</option>
               {categories.map( (category, index) => {
                 return(
                   <option 
@@ -109,7 +141,7 @@ export const CreateProduct = () => {
             </select>
           </div>
           <div>
-            <label htmlFor="expire">Expired Date</label>
+            <label htmlFor="expire">Vencimiento</label>
             <input type="date" 
               id="expire"
               name="expire"
@@ -119,10 +151,10 @@ export const CreateProduct = () => {
           {dateError && <p className='dataerror'>{dateError}</p>}
           {productInfo && <p className='formsent'>{productInfo}</p>}
           <div className="buttons-container">
-            <button type="submit">Add Product</button>
+            <button type="submit"><i className="bi bi-check2"></i> Guardar</button>
             <Link to='/createCategory'>
-              <button>
-                Add Category
+              <button type="button" className="btn-secondary">
+                <i className="bi bi-tags"></i> Categoría
               </button>
             </Link>
           </div>
