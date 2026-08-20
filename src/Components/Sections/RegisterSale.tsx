@@ -69,7 +69,7 @@ export const RegisterSale = () => {
     }
 
     if (quantityErrors) {
-      setDataError("Hay productos con cantidad mayor al stock disponible.");
+      setDataError("Hay productos con problemas con el stock ingresado. Corrigelo para poder continuar.");
       return;
     }
 

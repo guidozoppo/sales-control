@@ -37,7 +37,7 @@ export const ProductRow: React.FC<Props> = ({ index, product, handleProductChang
 
   const validateQuantity = (name: string, quantity: number) => {
     const productToCheck = inventory.find((pi) => pi.name.toLowerCase() === name.toLowerCase());
-    if (productToCheck && productToCheck.stock < quantity) {
+    if (productToCheck && (productToCheck.stock < quantity || quantity == 0 || Number.isNaN(quantity))) {
       setInputClass(true);
       setProductError(index, true);
     } else {
