@@ -1,15 +1,29 @@
 import { Link, useNavigate } from 'react-router-dom';
 import './login.css';
 import { useState } from 'react';
+import { REQUIRED_FORM_MESSAGE, fieldClass, isBlank } from '../../../utils/formValidation';
 
 export const Login = () => {
   const [loginInfo, setLoginInfo] = useState("");
+  const [fieldErrors, setFieldErrors] = useState({ email: false, password: false });
   const navigate = useNavigate();
+
   const handleSubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
-    const loginInfo = Object.fromEntries(new window.FormData(form));
-    const {email, password} = loginInfo as {email: string, password: string};
+    const loginData = Object.fromEntries(new window.FormData(form));
+    const {email, password} = loginData as {email: string, password: string};
+    const errors = {
+      email: isBlank(email),
+      password: isBlank(password),
+    };
+
+    setFieldErrors(errors);
+    if (errors.email || errors.password) {
+      setLoginInfo(REQUIRED_FORM_MESSAGE);
+      return;
+    }
+
     checkLoginInfo(email, password);
   }
 
@@ -36,13 +50,13 @@ export const Login = () => {
         <p>Inventario, clientes y reportes en un panel simple para el día a día.</p>
       </div>
       <div className='form-container'>
-        <form onSubmit={handleSubmitLogin}>
+        <form onSubmit={handleSubmitLogin} noValidate>
           <h2>Ingresar</h2>
           <p className="form-subtitle">Usá tu email y contraseña para continuar</p>
-          <label htmlFor="email">Email</label>
-          <input id="email" name='email' placeholder='leo.a@example.org' type="email" />
-          <label htmlFor="password">Contraseña</label>
-          <input id="password" name='password' placeholder='••••••••' type="password" />
+          <label htmlFor="email">Email *</label>
+          <input id="email" name='email' placeholder='leo.a@example.org' type="email" className={fieldClass(fieldErrors.email)} />
+          <label htmlFor="password">Contraseña *</label>
+          <input id="password" name='password' placeholder='••••••••' type="password" className={fieldClass(fieldErrors.password)} />
           <button type="submit">
             <i className="bi bi-box-arrow-in-right"></i>
             Entrar

@@ -25,6 +25,7 @@ input:disabled {
   margin: 0;
 }
 
-div .inputError {
-  border-color: var(--danger);
+.inputError {
+  border-color: var(--danger) !important;
+  background: #fef2f2;
 }
